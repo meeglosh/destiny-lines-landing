@@ -1,5 +1,5 @@
 /* ===========================================================
-   Destiny Lines — Landing Page
+   Destiny Lines: Landing Page
    Victorian carnival fortune-teller: black, oxblood, gilt gold.
    =========================================================== */
 
@@ -252,22 +252,72 @@ body::before{
 .hero{
   position: relative;
   padding: 64px 0 40px;
-  overflow: hidden;
 }
 
-.hero-curtain{
-  position: absolute;
+/* -------------------- theater curtains --------------------
+   Fixed to the viewport (never drift with page scroll; only ever
+   translate horizontally). Closed by default, covering most/all of
+   the screen. Scroll position sets a target parting amount, and a
+   damped spring in js/script.js chases that target every frame, so
+   scrolling briskly still tracks closely, but stopping mid-parting
+   lets the curtain overshoot and settle with a bit of bounce rather
+   than freezing rigidly. They stay mounted as a permanent frame for
+   the whole page, gathered to a slim velvet edge once fully parted.
+
+   The rod (::before) stays rigid and moves only with the shared
+   translateX. The fabric is a separate inner element that additionally
+   skews as it opens, with its transform-origin pinned to the top —
+   so the hem sweeps open further and faster than the header, giving
+   the panel a flowing, swept-back curve instead of sliding as a rigid
+   rectangle. Both the base offset and the skew angle are driven by
+   the same spring value, set inline by script.js. */
+
+.theater-curtain{
+  position: fixed;
   top: 0;
-  bottom: 0;
-  width: 18vw;
-  min-width: 140px;
-  max-width: 260px;
-  background: linear-gradient(180deg, rgba(74,15,20,0.55), rgba(42,5,8,0.85));
-  z-index: 0;
-  filter: blur(1px);
+  height: 100vh;
+  width: clamp(170px, 48vw, 640px);
+  z-index: 1;
+  pointer-events: none;
 }
-.hero-curtain-left{ left: -60px; border-radius: 0 0 60% 0; }
-.hero-curtain-right{ right: -60px; border-radius: 0 0 0 60%; }
+
+.theater-curtain-left{ left: 0; }
+.theater-curtain-right{ right: 0; }
+
+.curtain-fabric{
+  position: absolute;
+  top: 22px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: top;
+  background:
+    radial-gradient(ellipse 70% 26% at 28% 14%, rgba(255,255,255,0.09), transparent 65%),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,0.5) 0px,
+      rgba(0,0,0,0.1) 12px,
+      rgba(255,200,155,0.16) 24px,
+      rgba(0,0,0,0.1) 36px,
+      rgba(0,0,0,0.5) 48px
+    ),
+    linear-gradient(180deg, #1c0407 0%, #4a0f14 8%, #7d1a24 42%, #5c1017 72%, #220406 100%);
+  box-shadow: inset 0 0 70px 12px rgba(0,0,0,0.65);
+}
+
+/* rod + valance, stays straight regardless of fabric skew */
+.theater-curtain::before{
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 22px;
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold) 45%, var(--gold-dim));
+  box-shadow: 0 3px 10px rgba(0,0,0,0.6);
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .theater-curtain, .curtain-fabric{ transition: transform 0.2s ease; }
+}
 
 .hero-inner{
   display: grid;
