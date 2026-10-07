@@ -1,191 +1,297 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Destiny Lines: Your Future Is In Your Hands</title>
-<meta name="description" content="Destiny Lines is an iOS app that reads your palm and reveals your life, head, heart, and fate lines in seconds. Your future is in your hands.">
-<link rel="icon" type="image/png" href="img/DL-app-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Destiny Lines | Coming soon to iPhone</title>
+<meta name="description" content="Destiny Lines is a palm reading app for iPhone. Photograph your palm and read your Life, Head, Heart and Fate lines. Coming soon to the App Store.">
+<meta name="theme-color" content="#15111F">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Destiny Lines | Coming soon to iPhone">
+<meta property="og:description" content="Photograph your palm and read your Life, Head, Heart and Fate lines. Coming soon to the App Store.">
+<meta property="og:image" content="assets/og.jpg">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#15111F; --card:#211E2C; --text:#FFF1D2; --text2:#CFC6B1;
+  --gold:#F6D365; --purple:#691A9F; --accent:#C77DFF; --hi:#EACAFF;
+  --hairline:rgba(255,255,255,.09);
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:"Plus Jakarta Sans",system-ui,-apple-system,sans-serif;
+  --p:0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.gold{background:linear-gradient(90deg,#F6D365,#FFF1D2);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* header */
+.top{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px max(20px,4vw);pointer-events:none}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:18px;text-decoration:none;pointer-events:auto}
+.brand img{width:34px;height:34px;border-radius:9px}
+.pill{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(246,211,101,.4);padding:7px 14px;border-radius:99px;background:rgba(21,17,31,.6);backdrop-filter:blur(8px)}
+
+/* hero */
+.hero{position:relative;height:340vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:radial-gradient(120% 90% at 50% 55%,#2a1646 0%,#1d1230 45%,#15111F 80%)}
+.layer{position:absolute;inset:0;will-change:transform}
+.stars{transform:translate3d(0,calc(var(--p)*-3%),0)}
+.star{position:absolute;border-radius:50%;background:var(--text);opacity:.7}
+.nebula{transform:translate3d(0,calc(var(--p)*-7%),0) scale(calc(1 + var(--p)*.12));
+  background:radial-gradient(40% 35% at 30% 60%,rgba(105,26,159,.55),transparent 70%),radial-gradient(35% 30% at 72% 38%,rgba(199,125,255,.22),transparent 70%)}
+.title{position:absolute;left:0;right:0;top:9vh;text-align:center;z-index:2;transform:translate3d(0,calc(var(--p)*-3vh),0);padding:0 4vw}
+.title h1{font-family:var(--serif);font-weight:700;font-size:min(12.5vw,15vh);line-height:.95;letter-spacing:.02em;text-transform:uppercase}
+.title h1 span{display:block}
+.palmwrap{position:absolute;left:50%;bottom:-3vh;height:72vh;aspect-ratio:2/3;transform:translate3d(-50%,calc(var(--p)*-4vh),0) scale(calc(1 + var(--p)*.07));transform-origin:50% 80%;z-index:4}
+.palmwrap img.palm{width:100%;height:100%;display:block;filter:drop-shadow(0 0 60px rgba(246,211,101,.25))}
+.lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lines path{fill:none;stroke:#FFF1D2;stroke-width:7;stroke-linecap:round;filter:drop-shadow(0 0 8px #F6D365) drop-shadow(0 0 18px rgba(246,211,101,.8))}
+.ringsvg{position:absolute;left:50%;top:50%;width:min(130vh,150vw);height:min(130vh,150vw);margin:calc(min(130vh,150vw)/-2) 0 0 calc(min(130vh,150vw)/-2);overflow:visible}
+.ring-back{z-index:3;transform:translateY(8vh) rotate(calc(var(--p)*50deg))}
+.ring-front{z-index:5;transform:translateY(8vh) rotate(calc(var(--p)*50deg))}
+.ring-back,.ring-front{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+.ring-front .ringsvg,.ring-back .ringsvg{left:50%;top:50%}
+.ringsvg ellipse{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.7}
+.ringsvg circle{fill:var(--gold)}
+.fg{z-index:6;pointer-events:none;transform:translate3d(0,calc(var(--p)*-22vh),0)}
+.fg i{position:absolute;width:14px;height:14px;background:var(--hi);clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);filter:drop-shadow(0 0 6px var(--gold))}
+.vignette{z-index:7;pointer-events:none;background:linear-gradient(to top,var(--bg) 0%,rgba(21,17,31,.85) 14%,transparent 38%)}
+
+.caption{position:absolute;z-index:8;left:max(24px,5vw);bottom:9vh;max-width:340px}
+.caption{opacity:min(1,calc(var(--p)*9))}
+.caption .tag{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.caption h2{font-family:var(--serif);font-size:clamp(28px,3.4vw,46px);line-height:1.1;margin:6px 0 8px;font-weight:600}
+.caption p{color:var(--text2);font-size:15px;min-height:3.2em}
+.caption .dots{display:flex;gap:8px;margin-top:14px}
+.caption .dots b{width:26px;height:3px;border-radius:2px;background:rgba(255,255,255,.18);transition:background .3s}
+.caption .dots b.on{background:var(--gold)}
+.tagline{position:absolute;z-index:8;right:max(24px,5vw);bottom:9vh;max-width:300px;text-align:right;color:var(--text2);font-size:15px;opacity:calc(1 - var(--p)*3)}
+.tagline strong{display:block;font-family:var(--serif);font-size:22px;color:var(--text);font-weight:600;margin-bottom:4px}
+
+/* sections */
+section.wrap{position:relative;z-index:2;padding:clamp(64px,10vh,120px) max(24px,6vw)}
+.what{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:center;max-width:1180px;margin:0 auto}
+.what .art{position:relative;aspect-ratio:1;display:grid;place-items:center}
+.what .art::before{content:"";position:absolute;inset:8%;background:radial-gradient(closest-side,rgba(105,26,159,.6),transparent);filter:blur(20px)}
+.what .art img{position:relative;width:100%;max-width:520px;transform:translateY(calc(var(--q,0)*-24px)) rotate(calc(-4deg + var(--q,0)*4deg))}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600}
+h2.big{font-family:var(--serif);font-weight:600;font-size:clamp(34px,4.6vw,60px);line-height:1.08;margin:12px 0 18px}
+.lead{color:var(--text2);font-size:17px;max-width:46ch}
+.four{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:30px 0 26px}
+.four div{background:var(--card);border:1px solid var(--hairline);border-radius:20px;padding:16px 18px}
+.four b{display:block;font-family:var(--serif);font-size:19px;font-weight:600;color:var(--gold)}
+.four span{font-size:13.5px;color:var(--text2);line-height:1.45;display:block;margin-top:2px}
+.also{list-style:none;display:grid;gap:8px;color:var(--text2);font-size:15px}
+.also li::before{content:"";display:inline-block;width:8px;height:8px;margin-right:12px;background:var(--gold);clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);transform:scale(1.6)}
+
+.close{text-align:center;max-width:720px;margin:0 auto;padding-bottom:clamp(60px,10vh,110px)}
+.close .icon{width:96px;height:96px;border-radius:24px;box-shadow:0 0 0 1px rgba(246,211,101,.35),0 20px 70px rgba(105,26,159,.55);margin-bottom:28px}
+.close h2{font-family:var(--serif);font-weight:700;font-size:clamp(38px,6vw,76px);line-height:1.04}
+.close p{color:var(--text2);margin:18px auto 30px;max-width:44ch;font-size:17px}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border-radius:16px;font-weight:600;font-size:15px;text-decoration:none}
+.btn.dis{background:var(--card);border:1px solid var(--hairline);color:var(--text2);cursor:default}
+.btn.go{background:linear-gradient(90deg,#F6D365,#FFF1D2);color:#15111F}
+.btn.go:hover{filter:brightness(1.06)}
+:focus-visible{outline:2px solid var(--hi);outline-offset:3px}
+footer{position:relative;z-index:2;border-top:1px solid var(--hairline);padding:28px max(24px,6vw) 40px;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;color:var(--text2);font-size:13px}
+footer nav{display:flex;gap:22px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--text)}
+
+/* mobile composition */
+@media (max-width:760px){
+  .hero{height:300vh}
+  .title{top:12vh}
+  .title h1{font-size:clamp(46px,16vw,90px)}
+  .palmwrap{height:56vh;bottom:17vh}
+  .caption{left:24px;right:24px;bottom:5vh;max-width:none;text-align:center}
+  .caption .dots{justify-content:center}
+  .caption p{min-height:3em;font-size:14px}
+  .tagline{left:24px;right:24px;bottom:5vh;max-width:none;text-align:center}
+  .ringsvg{width:150vw;height:150vw;margin:-75vw 0 0 -75vw}
+  .ring-back,.ring-front{transform:translateY(-4vh) rotate(calc(var(--p)*50deg))}
+  .what{grid-template-columns:1fr}
+  .what .art{max-width:380px;margin:0 auto}
+  .four{grid-template-columns:1fr}
+  .top{padding:14px 16px}
+  .pill{font-size:11px;padding:6px 11px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero{height:auto}
+  .stage{position:relative}
+  *{transition:none!important}
+  .layer,.title,.palmwrap,.ring-back,.ring-front,.what .art img{transform-style:flat}
+}
+</style>
 </head>
 <body>
-
-<div class="star-field" aria-hidden="true"></div>
-<div class="theater-curtain theater-curtain-left" aria-hidden="true">
-  <div class="curtain-fabric"></div>
-</div>
-<div class="theater-curtain theater-curtain-right" aria-hidden="true">
-  <div class="curtain-fabric"></div>
-</div>
-
-<header class="site-header" id="top">
-  <div class="wrap header-inner">
-    <a class="brand" href="#top">
-      <img src="img/DL-app-icon.png" alt="" class="brand-mark">
-      <span class="brand-word">Destiny&nbsp;Lines</span>
-    </a>
-    <a class="btn btn-ghost btn-small" href="#reading">Begin a Reading</a>
-  </div>
+<header class="top">
+  <a class="brand" href="#top"><img src="assets/apple-touch-icon.png" alt="" width="34" height="34"><span>Destiny Lines</span></a>
+  <span class="pill">Coming soon</span>
 </header>
 
-<main>
+<main id="top">
+<div class="hero" id="hero">
+  <div class="stage">
+    <div class="layer stars" id="stars" aria-hidden="true"></div>
+    <div class="layer nebula" aria-hidden="true"></div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <div class="hero-copy reveal">
-        <p class="eyebrow"><span>✦</span> Instant Palm Readings for iPhone <span>✦</span></p>
-        <h1 class="wordmark">Destiny<br>Lines</h1>
-        <p class="tagline">Your future is in your hands.</p>
-        <p class="hero-sub">Show your palm to the camera. In seconds, our fortune&#8209;teller
-          traces your life, head, heart, and fate lines, then tells you what they mean.</p>
-        <p class="hero-trust">✦ We delete your photo as soon as your reading is ready. We never keep it.</p>
-        <div class="hero-actions">
-          <a href="#pricing" class="btn btn-primary btn-lights">
-            <span>Begin Your Reading</span>
-          </a>
-          <a href="#how" class="btn btn-link">See how it works ↓</a>
-        </div>
-      </div>
-      <div class="hero-art reveal reveal-delay-1">
-        <div class="phone-frame phone-frame-float">
-          <img src="img/DL-main-menu.png" alt="Destiny Lines app home screen, styled as an ornate gilded fortune-teller booth" loading="eager">
-        </div>
-        <div class="glow-orb" aria-hidden="true"></div>
-      </div>
+    <div class="title">
+      <h1 class="gold"><span>Destiny</span><span>Lines</span></h1>
     </div>
-    <div class="hero-fade" aria-hidden="true"></div>
-  </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="section" id="how">
-    <div class="wrap">
-      <p class="section-eyebrow reveal">The Ritual</p>
-      <h2 class="section-title reveal">Three steps to your reading</h2>
-
-      <div class="steps">
-        <article class="step reveal">
-          <div class="step-frame">
-            <img src="img/DL-align-hand-camera.png" alt="Aligning a hand within an on-screen guide to capture a palm photo" loading="lazy">
-          </div>
-          <div class="step-num">I</div>
-          <h3>Capture your palm</h3>
-          <p>Center your hand in the frame. Good light, full palm: the spirits appreciate clarity.</p>
-        </article>
-
-        <article class="step reveal reveal-delay-1">
-          <div class="step-frame">
-            <img src="img/DL-analyzing-palm.png" alt="Destiny Lines analyzing a palm photo with a glowing crystal ball animation" loading="lazy">
-          </div>
-          <div class="step-num">II</div>
-          <h3>The lines are read</h3>
-          <p>Our fortune&#8209;teller studies every crease and curve against centuries of palmistry tradition.</p>
-        </article>
-
-        <article class="step reveal reveal-delay-2">
-          <div class="step-frame">
-            <img src="img/DL-reading.png" alt="A completed palm reading broken into life, head, heart, and fate lines" loading="lazy">
-          </div>
-          <div class="step-num">III</div>
-          <h3>Discover your destiny</h3>
-          <p>Receive a full reading, save it to your history, and share it with the world.</p>
-        </article>
-      </div>
+    <div class="layer ring-back" aria-hidden="true">
+      <svg class="ringsvg" viewBox="-500 -500 1000 1000">
+        <g transform="rotate(-18)"><ellipse rx="430" ry="150"/><ellipse rx="380" ry="220" transform="rotate(40)"/></g>
+        <circle cx="-405" cy="-150" r="9"/><circle cx="300" cy="-215" r="6"/>
+      </svg>
     </div>
-  </section>
 
-  <!-- FOUR LINES -->
-  <section class="section section-lines">
-    <div class="wrap">
-      <p class="section-eyebrow reveal">One Palm, Four Stories</p>
-      <h2 class="section-title reveal">Every reading uncovers</h2>
-
-      <div class="lines-grid">
-        <div class="line-card reveal">
-          <img src="img/life-line.png" alt="Life Line: your vitality and the turning points that shape it." loading="lazy">
-        </div>
-        <div class="line-card reveal reveal-delay-1">
-          <img src="img/head-line.png" alt="Head Line: your mind, your intellect, the way you decide." loading="lazy">
-        </div>
-        <div class="line-card reveal reveal-delay-2">
-          <img src="img/heart-line.png" alt="Heart Line: your emotions, your loves, your deepest ties." loading="lazy">
-        </div>
-        <div class="line-card reveal reveal-delay-3">
-          <img src="img/fate-line.png" alt="Fate Line: your path, your purpose, where you're bound." loading="lazy">
-        </div>
-      </div>
+    <div class="palmwrap" id="palmwrap">
+      <img class="palm" src="assets/palm.webp" alt="A golden open palm, lit from within" width="1024" height="1536" fetchpriority="high">
+      <svg class="lines" viewBox="0 0 1024 1536" aria-hidden="true">
+        <path id="l-life"  d="M455 700 C 330 760, 300 960, 420 1085"/>
+        <path id="l-head"  d="M345 745 C 520 760, 690 800, 790 850"/>
+        <path id="l-heart" d="M815 690 C 700 660, 600 650, 500 655"/>
+        <path id="l-fate"  d="M585 1100 C 575 950, 560 800, 585 650"/>
+      </svg>
     </div>
-  </section>
 
-  <!-- PRICING -->
-  <section class="section" id="pricing">
-    <div class="wrap">
-      <p class="section-eyebrow reveal">Unlock Your Full Destiny</p>
-      <h2 class="section-title reveal">Choose your path</h2>
-      <p class="section-lede reveal">Start free. Go deeper whenever you're ready.</p>
-
-      <div class="pricing-grid">
-        <div class="price-card reveal">
-          <h3>Wanderer</h3>
-          <p class="price-amount">Free</p>
-          <p class="price-period">Your first reading, on the house</p>
-          <ul class="price-features">
-            <li>1 free reading, no card required</li>
-            <li>Life, head, heart &amp; fate lines</li>
-            <li>Saved to your history</li>
-          </ul>
-          <a href="#reading" class="btn btn-ghost btn-block">Start Free</a>
-        </div>
-
-        <div class="price-card price-card-featured reveal reveal-delay-1">
-          <div class="price-ribbon">Best Value</div>
-          <h3>Seer</h3>
-          <p class="price-amount">$39.99<span>/year</span></p>
-          <p class="price-period">or $4.99/month · save 33% yearly</p>
-          <ul class="price-features">
-            <li>Unlimited readings</li>
-            <li>In-depth insights on every line</li>
-            <li>Full reading history</li>
-            <li>Save &amp; share your readings</li>
-          </ul>
-          <a href="#reading" class="btn btn-primary btn-lights btn-block">
-            <span>Start Free Trial</span>
-          </a>
-          <p class="price-fineprint">3-day free trial on yearly · cancel anytime</p>
-          <p class="price-fineprint price-fineprint-privacy">We delete your photo as soon as your reading is ready.</p>
-        </div>
-      </div>
+    <div class="layer ring-front" aria-hidden="true">
+      <svg class="ringsvg" viewBox="-500 -500 1000 1000">
+        <g transform="rotate(-18)"><path d="M-430 0 A430 150 0 0 0 430 0" fill="none" stroke="#F6D365" stroke-width="2" opacity=".9"/></g>
+        <circle cx="-120" cy="140" r="12"/><circle cx="330" cy="40" r="8"/>
+      </svg>
     </div>
-  </section>
 
-  <!-- FINAL CTA -->
-  <section class="section cta-section" id="reading">
-    <div class="wrap cta-inner reveal">
-      <div class="cta-frame">
-        <img src="img/coming-soon.png" alt="Your Future Awaits. Your hands already know, let's find out what they're saying. Coming soon to the App Store: Destiny Lines is completing its final rituals before launch on iPhone. Check back soon.">
-      </div>
+    <div class="layer fg" id="fg" aria-hidden="true"></div>
+    <div class="layer vignette" aria-hidden="true"></div>
+
+    <div class="tagline">
+      <strong>Your future is in your hands.</strong>
+      Scroll to watch four lines appear.
     </div>
-  </section>
 
+    <div class="caption" id="caption" aria-live="polite">
+      <div class="tag" id="cap-tag">The Four Lines</div>
+      <h2 id="cap-h">Life Line</h2>
+      <p id="cap-p">Your vitality and major life changes.</p>
+      <div class="dots" aria-hidden="true"><b></b><b></b><b></b><b></b></div>
+    </div>
+  </div>
+</div>
+
+<section class="wrap">
+  <div class="what">
+    <div class="art"><img id="journal" src="assets/journal.webp" alt="A purple journal embossed with a gold hand and star, ringed by an orbit of light" width="900" height="900" loading="lazy"></div>
+    <div>
+      <div class="kicker">What it is</div>
+      <h2 class="big">A palm reading, <span class="gold">line by line.</span></h2>
+      <p class="lead">Photograph your palm and Destiny Lines gives you a reading for the four lines palmists read first, with an overview, an in-depth view and a timeline.</p>
+      <div class="four">
+        <div><b>Life Line</b><span>Your vitality and major life changes.</span></div>
+        <div><b>Head Line</b><span>Your mind, intellect and decision making.</span></div>
+        <div><b>Heart Line</b><span>Your emotions, love and relationships.</span></div>
+        <div><b>Fate Line</b><span>Your path, purpose and destiny.</span></div>
+      </div>
+      <ul class="also">
+        <li>Every reading is kept in your history.</li>
+        <li>Share a branded reading card as an image.</li>
+        <li>We delete your photo as soon as your reading is ready.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap close">
+  <img class="icon" src="assets/apple-touch-icon.png" alt="Destiny Lines app icon" width="96" height="96">
+  <h2 class="gold">Coming soon to the App Store.</h2>
+  <p>Destiny Lines is built for iPhone and is almost ready. Want to hear when it lands? Send us a note.</p>
+  <div class="btns">
+    <span class="btn dis" role="note">App Store: coming soon</span>
+    <a class="btn go" href="mailto:hello@thegapco.com?subject=Destiny%20Lines%20launch">Tell me when it is live</a>
+  </div>
+</section>
 </main>
 
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <img src="img/DL-app-icon.png" alt="" class="brand-mark brand-mark-small">
-      <span>Destiny&nbsp;Lines</span>
-    </div>
-    <nav class="footer-links">
-      <span class="footer-link-soon" aria-disabled="true">Privacy <em>(coming soon)</em></span>
-      <span class="footer-link-soon" aria-disabled="true">Terms <em>(coming soon)</em></span>
-    </nav>
-    <p class="footer-fineprint">For entertainment purposes only. Available on iPhone. &copy; <span id="year"></span> Destiny Lines.</p>
-  </div>
+<footer>
+  <span>&copy; 2026 Destiny Lines. For entertainment purposes only.</span>
+  <nav>
+    <a href="https://destiny-lines-api.dry-base-037d.workers.dev/privacy">Privacy</a>
+    <a href="https://destiny-lines-api.dry-base-037d.workers.dev/terms">Terms</a>
+    <a href="mailto:hello@thegapco.com">hello@thegapco.com</a>
+  </nav>
 </footer>
 
-<script src="js/script.js"></script>
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero = document.getElementById('hero');
+  var lines = ['l-life','l-head','l-heart','l-fate'].map(function(id){
+    var el = document.getElementById(id), len = el.getTotalLength();
+    el.style.strokeDasharray = len; el.style.strokeDashoffset = len; el._len = len; return el;
+  });
+  var info = [
+    ['Life Line','Your vitality and major life changes.'],
+    ['Head Line','Your mind, intellect and decision making.'],
+    ['Heart Line','Your emotions, love and relationships.'],
+    ['Fate Line','Your path, purpose and destiny.']
+  ];
+  var h = document.getElementById('cap-h'), pp = document.getElementById('cap-p'), tag = document.getElementById('cap-tag');
+  var dots = document.querySelectorAll('.dots b');
+
+  // star field (back plane) and sparkles (front plane)
+  var sf = document.getElementById('stars'), seed = 7;
+  function rnd(){ seed = (seed*9301+49297)%233280; return seed/233280; }
+  for (var i=0;i<90;i++){ var s=document.createElement('div'); s.className='star';
+    var z=rnd()*2.2+.6; s.style.cssText='left:'+rnd()*100+'%;top:'+rnd()*115+'%;width:'+z+'px;height:'+z+'px;opacity:'+(.25+rnd()*.6); sf.appendChild(s); }
+  var fg = document.getElementById('fg');
+  [[8,70,1.2],[90,58,.9],[18,30,.7],[82,22,1],[50,88,.8],[70,80,1.3]].forEach(function(a){
+    var i=document.createElement('i'); i.style.cssText='left:'+a[0]+'%;top:'+a[1]+'%;transform:scale('+a[2]+')'; fg.appendChild(i); });
+
+  var cur = -1;
+  function setCaption(n){
+    if(n===cur) return; cur=n;
+    if(n<0){ tag.textContent='The Four Lines'; h.textContent='Life Line'; pp.textContent=info[0][1]; }
+    else { tag.textContent='Line '+(n+1)+' of 4'; h.textContent=info[n][0]; pp.textContent=info[n][1]; }
+    dots.forEach(function(d,i){ d.classList.toggle('on', i<=n); });
+  }
+  function draw(p){
+    lines.forEach(function(el,i){
+      var a = .12 + i*.19, t = Math.min(1,Math.max(0,(p-a)/.17));
+      el.style.strokeDashoffset = el._len*(1-t);
+      el.style.opacity = t>0 ? 1 : 0;
+    });
+    var n=-1; for(var i=0;i<4;i++){ if(p >= .12+i*.19) n=i; } setCaption(n);
+  }
+  var q = document.getElementById('journal'), what = document.querySelector('.what');
+  function update(){
+    var r = hero.getBoundingClientRect(), vh = innerHeight;
+    var p = Math.min(1,Math.max(0,-r.top/(r.height-vh)));
+    hero.style.setProperty('--p', p.toFixed(4)); draw(p);
+    var w = what.getBoundingClientRect(), t = 1 - (w.top + w.height/2)/vh;
+    what.style.setProperty('--q', Math.min(1,Math.max(0,t)).toFixed(3));
+  }
+  if(reduce){
+    hero.style.setProperty('--p', 0);
+    lines.forEach(function(el){ el.style.strokeDashoffset=0; el.style.opacity=1; });
+    tag.textContent='The Four Lines'; h.textContent='Life, Head, Heart, Fate'; pp.textContent='Four lines, read one by one in the app.';
+    dots.forEach(function(d){ d.classList.add('on'); });
+    document.querySelector('.tagline').style.display='none';document.querySelector('.caption').style.opacity=1;
+  } else {
+    var tick=false;
+    addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(function(){ tick=false; update(); }); } },{passive:true});
+    addEventListener('resize',update); update();
+  }
+})();
+</script>
 </body>
 </html>
